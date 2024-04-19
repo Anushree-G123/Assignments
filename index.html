@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Enrollment Form</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" id="attTraining">AT&T Training </a></li>
+            <li><a href="#" id="link">Enrollment</a></li>
+            <li><a href="#" id="StudentListLink" >Student List</a></li>
+        </ul>
+    </nav>
+
+    <div id="Form" style="display: none;">
+        <h2>Enrollment Form</h2>
+        <form id="enrollmentForm">
+            <div>
+                <lable for="firstName">*First Name:</lable>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+<br>
+            <div>
+                <lable for="lastName">*Last Name:</lable>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+<br>
+            <div>
+                <label for="projectName">*Project Name</label>
+                <select id="projectName" name="projectname" required>
+                    <option value="">Select the project</option>
+                    <option value="IDP">IDP</option>
+                    <option value="Upper Funnel">Upper Funnel</option>
+                    <option value="OCE">OCE</option>
+                    <option value="Legacy Sales">Legacy Sales</option>
+                </select>
+            </div>
+<br>
+            <div>
+                <label>Skills:</label>
+                <input type="checkbox" id="reactjs" name="skills" value="ReactJS">
+                <label for="reactjs">ReactJS</label>
+                <input type="checkbox" id="nodejs" name="skills" value="NodeJS">
+                <label for="nodejs">nodeJS</label>
+                <input type="checkbox" id="mongodb" name="skills" value="MongoDB">
+                <label for="mongodb">mongoDB</label>
+                <input type="checkbox" id="javascript" name="skills" value="Javascript">
+                <label for="javascript">Javascript</label><br>
+            </div>
+<br>
+            <div>
+                <label>Result:</label>
+                <input type="radio" id="pass" name="result" value="Pass">
+                <label for="pass">Pass</label>
+                <input type="radio" id="fail" name="result" value="Fail">
+                <label for="fail">Fail</label>
+            </div>
+<br>
+            <div>
+                <button type="submit" onclick="submitForm()">Submit</button>
+                <button type="button" onclick="cancelForm()">Cancel</button>
+            </div>
+
+
+        </form>
+
+    </div>
+
+    <div id="studentList"></div>
+
+    <script src="scripts/script.js"></script>
+    
+</body>
+</html>
