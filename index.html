@@ -3,75 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Enrollment Form</title>
+    <title>Student Enrollment Form </title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
     <nav>
         <ul>
             <li><a href="#" id="attTraining">AT&T Training </a></li>
-            <li><a href="#" id="link">Enrollment</a></li>
-            <li><a href="#" id="StudentListLink" >Student List</a></li>
+            <li><a href="#" id="enrollmentTab">Enrollment</a></li>
+            <li><a href="#" id="studentListTab" >Student List</a></li>
         </ul>
     </nav>
-
-    <div id="Form" style="display: none;">
-        <h2>Enrollment Form</h2>
-        <form id="enrollmentForm">
-            <div>
-                <lable for="firstName">*First Name:</lable>
-                <input type="text" id="firstName" name="firstName" required>
-            </div>
-<br>
-            <div>
-                <lable for="lastName">*Last Name:</lable>
-                <input type="text" id="lastName" name="lastName" required>
-            </div>
-<br>
-            <div>
-                <label for="projectName">*Project Name</label>
-                <select id="projectName" name="projectname" required>
-                    <option value="">Select the project</option>
-                    <option value="IDP">IDP</option>
-                    <option value="Upper Funnel">Upper Funnel</option>
-                    <option value="OCE">OCE</option>
-                    <option value="Legacy Sales">Legacy Sales</option>
-                </select>
-            </div>
-<br>
-            <div>
-                <label>Skills:</label>
-                <input type="checkbox" id="reactjs" name="skills" value="ReactJS">
-                <label for="reactjs">ReactJS</label>
-                <input type="checkbox" id="nodejs" name="skills" value="NodeJS">
-                <label for="nodejs">nodeJS</label>
-                <input type="checkbox" id="mongodb" name="skills" value="MongoDB">
-                <label for="mongodb">mongoDB</label>
-                <input type="checkbox" id="javascript" name="skills" value="Javascript">
-                <label for="javascript">Javascript</label><br>
-            </div>
-<br>
-            <div>
-                <label>Result:</label>
-                <input type="radio" id="pass" name="result" value="Pass">
-                <label for="pass">Pass</label>
-                <input type="radio" id="fail" name="result" value="Fail">
-                <label for="fail">Fail</label>
-            </div>
-<br>
-            <div>
-                <button type="submit" onclick="submitForm()">Submit</button>
+    
+    <div class="container">
+        <div id="enrollmentForm" style="display: none;">
+            <h2>Enrollment Form</h2>
+            <form id="enrollmentForm">
+                <div class="form-group">
+                    <label for="firstName">*First Name:</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">*Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName" required>
+                </div>
+                <div class="form-group skills-group">
+                    <label for="projectName">*Project Name:</label>
+                    <select class="form-control" id="projectName" name="projectname" required>
+                        <option value="">Select the project</option>
+                        <option value="IDP">IDP</option>
+                        <option value="Upper Funnel">Upper Funnel</option>
+                        <option value="OCE">OCE</option>
+                        <option value="Legacy Sales">Legacy Sales</option>
+                    </select>
+                </div>
+                <div class="form-group result-group">
+                    <label>Skills:</label><br>
+                    <input type="checkbox" id="reactjs" name="skills" value="ReactJS">
+                    <label for="reactjs">ReactJS</label>
+                    <input type="checkbox" id="nodejs" name="skills" value="NodeJS">
+                    <label for="nodejs">nodeJS</label>
+                    <input type="checkbox" id="mongodb" name="skills" value="MongoDB">
+                    <label for="mongodb">mongoDB</label>
+                    <input type="checkbox" id="javascript" name="skills" value="Javascript">
+                    <label for="javascript">Javascript</label><br>
+                </div>
+                <div class="form-group">
+                    <label>Result:</label><br>
+                    <input type="radio" id="pass" name="result" value="Pass">
+                    <label for="pass">Pass</label>
+                    <input type="radio" id="fail" name="result" value="Fail">
+                    <label for="fail">Fail</label>
+                </div>
+                <button type="button" onclick="submitForm()" class="btn btn-default">Submit</button>
                 <button type="button" onclick="cancelForm()">Cancel</button>
-            </div>
-
-
-        </form>
-
+            </form>
+        </div>
+        <div id="studentList" style="display:none;">
+            <h2>Student List</h2>
+        
+        </div>
     </div>
 
-    <div id="studentList"></div>
-
-    <script src="scripts/script.js"></script>
     
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+    
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBFXLm5oR6J2STzBsaK3aoSag-k9qzYi6s",
+            authDomain: "sef1-37532.firebaseapp.com",
+            databaseURL: "https://sef1-37532-default-rtdb.firebaseio.com",
+            projectId: "sef1-37532",
+            storageBucket: "sef1-37532.appspot.com",
+            messagingSenderId: "149150186172",
+            appId: "1:149150186172:web:7a0c5963e559813fb32eb9"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Function to submit form data
+        function submitForm() {
+            const formData = {
+                firstName: document.getElementById("firstName").value,
+                lastName: document.getElementById("lastName").value,
+                projectName: document.getElementById("projectName").value,
+                skills: [],
+                result: document.querySelector('input[name="result"]:checked').value
+            };
+
+            // Get selected skills
+            const skillsCheckboxes = document.querySelectorAll('input[name="skills"]:checked');
+            skillsCheckboxes.forEach(function(skill) {
+                formData.skills.push(skill.value);
+            });
+
+            // Sending form data to Firebase
+            firebase.database().ref("students/").push(formData);
+            alert("student enrollment successful");
+        }
+
+        // Function to cancel form submission and reset form fields
+        function cancelForm() {
+            document.getElementById("enrollmentForm").reset();
+        }
+
+        // Event listener for Enrollment tab
+        document.getElementById("enrollmentTab").addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById("enrollmentForm").style.display = "block";
+            document.getElementById("studentList").style.display = "none";
+        });
+
+        // Event listener for Student List tab
+        document.getElementById("studentListTab").addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById("enrollmentForm").style.display = "none";
+            document.getElementById("studentList").style.display = "block";
+            
+        });
+
+        // Read data from Firebase and display in the table
+        firebase.database().ref("students/").on("value", function(snapshot) {
+            const studentListDiv = document.getElementById("studentList");
+            studentListDiv.innerHTML = "";
+            let tableHtml = "<table class='table'><thead><tr><th>First Name</th><th>Last Name</th><th>Project Name</th><th>Skills</th><th>Result</th></tr></thead><tbody>";
+            snapshot.forEach(function(childSnapshot) {
+                const student = childSnapshot.val();
+                const skills = student.skills ? student.skills.join(", ") : "";
+                tableHtml += "<tr><td>" + student.firstName + "</td><td>" + student.lastName + "</td><td>" + student.projectName + "</td><td>" + skills + "</td><td>" + student.result + "</td></tr>";
+            });
+            tableHtml += "</tbody></table>";
+            studentListDiv.innerHTML = tableHtml;
+        });
+    </script>
 </body>
 </html>

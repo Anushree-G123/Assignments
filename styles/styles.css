@@ -8,6 +8,42 @@ header {
     background-color: #333;
     padding: 10px;
 }
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding-top: 20px;
+}
+
+form {
+    width:70%;
+    margin:0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+.skills-group,
+.result-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+/* Adjust margin for checkboxes and radio buttons */
+.skills-group input[type="checkbox"],
+.result-group input[type="radio"] {
+    margin-right: 10px; 
+}
+
+
+.skills-group label {
+    width: auto; 
+    margin-right: 10px; 
+}
+
+
 nav {
     background-color: #111;
     
@@ -34,4 +70,39 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color:grey;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto; /* Center the table */
+    margin-top: 20px;
+}
+
+thead th {
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+    background-color: white; /* Light background for even rows */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: whitesmoke; /* Dark background for odd rows */
+}
+
+td, th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+td:first-child{
+    border-left: none;
+}
+
+#projectName option[value=""]{
+    color: skyblue;
 }
